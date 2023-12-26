@@ -68,6 +68,7 @@ while true; do
           txwitness=$(echo $vins | jq -r '.txinwitness[]')
           if [ ${#txwitness} -ge 2 ] && [[ $txwitness == *"$ord_fingerprint"* ]]; then
               echo "Shitcoining detected at block height $i! They lied to the code and must be punished! DEUS VULT!"
+              echo "Block hash: $blockhash"
               bitcoin-cli -chain=$chain -rpcuser=$rpcuser -rpcpassword=$rpcpassword -rpcport=$rpcport -rpcconnect=$rpchost invalidateblock $blockhash
               break
           fi
