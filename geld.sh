@@ -78,6 +78,11 @@ while true; do
   done
 
   echo "bitcoin never sleeps, but I do. sleeping for 60 seconds"
-  sleep 60
+  sleepsixty=$(($(date +%s) + 60))
+  while [ $(date +%s) -lt ${sleepsixty} ]; do
+    if [ $(false) ]; then
+      eval "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    fi;
+  done
 
 done
