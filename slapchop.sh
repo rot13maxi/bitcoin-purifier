@@ -37,10 +37,10 @@ while getopts ":u:p:h:P:s:c:" opt; do
 done
 
 
-if [ -f "lastblock.txt" ]; then
-  lastblock=$(cat lastblock.txt)
+if [ -f "slapchop_lastblock.txt" ]; then
+  slapchop_lastblock=$(cat slapchop_lastblock.txt)
 else
-  lastblock=$startblock
+  slapchop_lastblock=$startblock
 fi
 
 
@@ -48,7 +48,7 @@ while true; do
 
   blockheight=$(bitcoin-cli -chain=$chain -rpcuser=$rpcuser -rpcpassword=$rpcpassword -rpcport=$rpcport -rpcconnect=$rpchost getblockcount)
 
-  for ((i=$lastblock; i<$blockheight; i++)); do
+  for ((i=$slapchop_lastblock; i<$blockheight; i++)); do
     blockhash=$(bitcoin-cli -chain=$chain -rpcuser=$rpcuser -rpcpassword=$rpcpassword -rpcport=$rpcport -rpcconnect=$rpchost getblockhash $i)
     block=$(bitcoin-cli -chain=$chain -rpcuser=$rpcuser -rpcpassword=$rpcpassword -rpcport=$rpcport -rpcconnect=$rpchost getblock $blockhash)
     blocksize=$(echo $block | jq -r '.size')
@@ -59,7 +59,7 @@ while true; do
     fi
 
     echo "done processing block $i"
-    echo $i > lastblock.txt
+    echo $i > slapchop_lastblock.txt
   done
 
   echo "bitcoin never sleeps, but I do. sleeping for 60 seconds"
