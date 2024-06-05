@@ -2,8 +2,6 @@
 
 set -e -u -o pipefail
 
-ord_fingerprint="0063036f7264"
-
 # default values
 rpcuser="bitcoinrpc"
 rpcpassword="password"
